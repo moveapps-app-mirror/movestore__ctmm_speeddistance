@@ -20,9 +20,9 @@ The app returns the input *ctmm model with data* as output.
 
 ### Artefacts
 
-`speed.csv`: The estimated average speed for each animal. The table consists of five columns, which are: `est` the estimated speed with a lower (`low`) and upper (`high`) confidence interval, the units (`unit`) and `id` of the animal. 
+`speed.csv`: The estimated average speed of each animal over its tracking time. The table consists of five columns, which are: `est` the estimated speed with a lower (`low`) and upper (`high`) confidence interval, the units (`unit`) and `id` of the animal. 
 
-`distance.csv`: The estimated total distance traveled for each animal. The table consists of five columns, which are: `est` the estimated distance with a lower (`low`) and upper (`high`) confidence interval, the units (`unit`) and `id` of the animal. 
+`distance.csv`: The estimated total distance each animal moved over its tracked period. The table consists of five columns, which are: `est` the estimated distance with a lower (`low`) and upper (`high`) confidence interval, the units (`unit`) and `id` of the animal. 
 
 
 ### Settings 
