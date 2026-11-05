@@ -20,11 +20,24 @@ rFunction <- function(data) {
     ~ speed(.x, .y, units = FALSE, trace = FALSE)
   )
   
+  # ctmm returns DOF = 0 when it can't estimate speed, usually because the
+  # model has no velocity component. Those animals get NA in both files.
+  no_estimate <- map_lgl(s1, ~ .x$DOF == 0)
+  
+  walk(
+    names(s1)[no_estimate], 
+    function(id) {
+      logger.warn(paste0(
+        id, 
+        ": speed and distance could not be estimated. ",
+        "See 'Errors and null handling' in the App documentation."
+      ))
+    }
+  )
+  
   xx <- map(s1, ~ {
     if (.$DOF == 0) {
-      # Speed estimate was not possible, not enough data points.
-      list("Speed estimate was not possible, not enough data points ", 
-           c(NA, NA, NA))
+      list("Speed (m/s) ", c(NA, NA, NA))
     } else {
       ci <- signif(.$CI, 4)
       list("Speed (m/s) ", c(ci[2], ci[1], ci[3]))
@@ -44,8 +57,9 @@ rFunction <- function(data) {
   xx <- do.call(rbind, xx)
   xx |> as_tibble() |> 
     mutate(id = names(s1)) |> 
-    mutate(low = low * duration, est = est * duration, high = high * duration, unit = "distance (meters)") |> 
-    select(id, unit, low, est, high) |> 
+    mutate(low = low * duration, est = est * duration, high = high * duration, unit = "distance (meters)") |>
+    mutate(across(c(low, est, high), ~ if_else(no_estimate, NA_real_, .x))) |>
+    select(id, unit, low, est, high) |>
     write.csv(appArtifactPath("distance.csv"), row.names = FALSE)
   
   return(data)
