@@ -2,9 +2,23 @@ library(ctmm)
 library(purrr)
 library(dplyr)
 
-rFunction = function(data) {
+rFunction <- function(data) {
+  # Ensure all telemetry columns are valid. When ctmm subsets the data it
+  # renames invalid names, causing the `rbind()` inside `speed()` to fail
+  # with "names do not match previous names"
+  telemetry <- map(
+    data[[2]],
+    function(x) {
+      names(x) <- make.names(names(x), unique = TRUE)
+      x
+    }
+  )
 
-  s1 <- map2(data[[1]], data[[2]], ~ speed(.x, .y, units = FALSE, trace = FALSE))
+  s1 <- map2(
+    data[[1]],
+    telemetry,
+    ~ speed(.x, .y, units = FALSE, trace = FALSE)
+  )
   
   xx <- map(s1, ~ {
     if (.$DOF == 0) {
