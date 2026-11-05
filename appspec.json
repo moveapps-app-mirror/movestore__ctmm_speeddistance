@@ -1,4 +1,6 @@
 {
+  "version": "1.2",
+  "settings": [],
   "dependencies": {
     "R": [
       {
@@ -12,14 +14,13 @@
       }
     ]
   },
-    "createsArtifacts": true,
   "license": {
     "key": "MIT"
   },
   "language": "eng",
   "keywords": [
     "speed",
-    "distance", 
+    "distance",
     "ctmm"
   ],
   "people": [
@@ -35,7 +36,7 @@
       "orcid": "0000-0002-3042-5435",
       "affiliation": "Kaldera",
       "affiliationRor": null
-    }, 
+    },
     {
       "firstName": "Johannes",
       "middleInitials": null,
@@ -45,7 +46,7 @@
         "author",
         "creator"
       ],
-      "orcid": "0000-0002-1771-7775" ,
+      "orcid": "0000-0002-1771-7775",
       "affiliation": "University of Goettingen",
       "affiliationRor": "01y9bpm73"
     }
@@ -62,9 +63,5 @@
       "note": "Documentation of the `speed()`-function",
       "url": "https://rdrr.io/cran/ctmm/man/speed.html"
     }
-  ],
-  "documentation": {
-    "url": "https://github.com/ctmm-initiative/ctmmMoveApp_speeddistance/blob/main/README.md"
-  }
+  ]
 }
-
