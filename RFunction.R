@@ -37,10 +37,10 @@ rFunction <- function(data) {
   
   xx <- map(s1, ~ {
     if (.$DOF == 0) {
-      list("Speed (m/s) ", c(NA, NA, NA))
+      list("speed (m/s)", c(NA, NA, NA))
     } else {
       ci <- signif(.$CI, 4)
-      list("Speed (m/s) ", c(ci[2], ci[1], ci[3]))
+      list("speed (m/s)", c(ci[2], ci[1], ci[3]))
     }
   })
   
@@ -57,7 +57,7 @@ rFunction <- function(data) {
   xx <- do.call(rbind, xx)
   xx |> as_tibble() |> 
     mutate(id = names(s1)) |> 
-    mutate(low = low * duration, est = est * duration, high = high * duration, unit = "distance (meters)") |>
+    mutate(low = low * duration, est = est * duration, high = high * duration, unit = "distance (m)") |>
     mutate(across(c(low, est, high), ~ if_else(no_estimate, NA_real_, .x))) |>
     select(id, unit, low, est, high) |>
     write.csv(appArtifactPath("distance.csv"), row.names = FALSE)
